@@ -17,14 +17,16 @@
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 
         <!-- Set java compiler version to 11 if you are using Glassfish v6.1 -->
+        <!--
         <maven.compiler.release>11</maven.compiler.release>
+        -->
 
         <!--Glassfish v6.0.x still requires Java 8, Java 11 support will be available in v6.1 -->
         <!--NOTE:The `maven.compiler.release` property is not available when using Java 8-->
-        <!--
+        <!-- -->
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
-        -->
+        
 
         <!-- The default value is changed to `false` since maven-war-plugin 3.0.0 -->
         <failOnMissingWebXml>false</failOnMissingWebXml>
@@ -181,6 +183,12 @@
             <artifactId>jakarta.jakartaee-api</artifactId>
         </dependency>
         <dependency>
+            <groupId>jakarta.ws.rs</groupId>
+            <artifactId>jakarta.ws.rs-tck</artifactId>
+            <version>3.1-SNAPSHOT</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
             <groupId>org.jboss.arquillian.junit5</groupId>
             <artifactId>arquillian-junit5-container</artifactId>
             <scope>test</scope>
@@ -294,8 +302,11 @@
                             <goal>verify</goal>
                         </goals>
                         <configuration>
+                            <dependenciesToScan>
+                                <dependency>jakarta.ws.rs:jakarta.ws.rs-tck</dependency>
+                            </dependenciesToScan>
                             <includes>
-                                <include>**/it/**</include>
+                                <include>**/tck/**/*Test</include>
                             </includes>
                         </configuration>
                     </execution>
@@ -654,6 +665,9 @@
         </profile>
         <profile>
             <id>openliberty</id>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
             <!-- Use the following command to start and deploy applications to a `pre-existing` OpenLiberty beta -->
             <!-- mvn clean package liberty:start liberty:deploy -Popenliberty-->
 
@@ -1224,7 +1238,7 @@
                         <configuration>
                             <environmentVariables>
                                 <!-- WLP_HOME is not picked by arquillian liberty -->
-                                <!--<WLP_HOME>${project.build.directory}/wlp</WLP_HOME>-->
+                                <WLP_HOME>${project.build.directory}/wlp</WLP_HOME>
                             </environmentVariables>
                             <systemPropertyVariables>
                                 <arquillian.launch>liberty-managed</arquillian.launch>
@@ -1248,6 +1262,7 @@
                     <groupId>io.openliberty.arquillian</groupId>
                     <artifactId>arquillian-liberty-remote-jakarta</artifactId>
                     <version>${arquillian-liberty-jakarta.version}</version>
+                    <scope>test</scope>
                 </dependency>
                 <dependency>
                     <groupId>org.glassfish.jersey.media</groupId>
