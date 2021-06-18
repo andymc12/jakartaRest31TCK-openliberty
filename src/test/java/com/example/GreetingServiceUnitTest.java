@@ -16,7 +16,7 @@ public class GreetingServiceUnitTest {
 
     @Test
     public void testGreeting(){
-       var message = service.buildGreetingMessage("JakartaEE");
+        GreetingMessage message = service.buildGreetingMessage("JakartaEE");
        assertThat(message.getMessage()).startsWith("Say Hello to JakartaEE");
     }
 }
