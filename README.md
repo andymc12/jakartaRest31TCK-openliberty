@@ -18,3 +18,7 @@ You can see it run with the command:
 This project also includes some Open Liberty configuration files. To add other app servers, you would need to create
 new profiles in the pom.xml file and possibly add server configuration files necessary for app deployment in the server.
 Likewise, you would need to add the Arquillian plugin for that server.
+
+Note that the `http.port` system property is passed in via Open Liberty's
+[jvm.options file](src/main/test/arq/liberty-managed/jvm.options). This tells the test framework what port the app
+server is listening on.
