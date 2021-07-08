@@ -20,5 +20,5 @@ new profiles in the pom.xml file and possibly add server configuration files nec
 Likewise, you would need to add the Arquillian plugin for that server.
 
 Note that the `http.port` system property is passed in via Open Liberty's
-[jvm.options file](src/main/test/arq/liberty-managed/jvm.options). This tells the test framework what port the app
+[jvm.options file](src/test/arq-liberty-managed/jvm.options). This tells the test framework what port the app
 server is listening on.
