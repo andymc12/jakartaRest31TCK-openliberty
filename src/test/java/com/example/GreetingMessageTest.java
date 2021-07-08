@@ -1,9 +1,10 @@
 package com.example;
 
+import static org.testng.Assert.assertEquals;
 
-import org.junit.jupiter.api.Test;
+import org.testng.annotations.Test;
 
-import static org.assertj.core.api.Assertions.assertThat;
+
 
 
 public class GreetingMessageTest {
@@ -11,6 +12,6 @@ public class GreetingMessageTest {
     @Test
     public void testGreetingMessage() {
         GreetingMessage message = GreetingMessage.of("Say Hello to JatartaEE");
-        assertThat(message.getMessage()).isEqualTo("Say Hello to JatartaEE");
+        assertEquals(message.getMessage(), "Say Hello to JatartaEE");
     }
 }

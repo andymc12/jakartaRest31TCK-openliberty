@@ -1,0 +1,10 @@
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
+
+<suite name="jakarta-restful-ws-3.1-tck" verbose="2"
+    configfailurepolicy="continue">
+    <test name="tck-package-jakarta.ws.rs.tck">
+        <packages>
+            <package name="jakarta.ws.rs.tck.basic.*"/>
+        </packages>
+    </test>
+</suite>

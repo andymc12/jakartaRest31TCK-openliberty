@@ -1,15 +1,16 @@
 package com.example;
 
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+import static org.testng.Assert.assertTrue;
 
-import static org.assertj.core.api.Assertions.assertThat;
+import org.testng.annotations.BeforeTest;
+import org.testng.annotations.Test;
+
 
 public class GreetingServiceUnitTest {
 
     GreetingService service;
 
-    @BeforeEach
+    @BeforeTest
     public void setup() {
         service = new GreetingService();
     }
@@ -17,6 +18,6 @@ public class GreetingServiceUnitTest {
     @Test
     public void testGreeting(){
         GreetingMessage message = service.buildGreetingMessage("JakartaEE");
-       assertThat(message.getMessage()).startsWith("Say Hello to JakartaEE");
+       assertTrue(message.getMessage().startsWith("Say Hello to JakartaEE"));
     }
 }
