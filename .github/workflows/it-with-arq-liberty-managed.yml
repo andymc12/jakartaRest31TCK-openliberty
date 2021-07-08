@@ -32,4 +32,4 @@ jobs:
           restore-keys: ${{ runner.os }}-m2
 
       - name: Run integration test with -Parq-liberty-managed
-        run: mvn clean verify -Parq-liberty-managed
+        run: mvn clean integration-test -Parq-liberty-managed
