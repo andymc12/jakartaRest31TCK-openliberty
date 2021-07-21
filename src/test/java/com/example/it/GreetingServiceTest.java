@@ -1,6 +1,6 @@
 package com.example.it;
 
-import static org.testng.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -9,17 +9,18 @@ import com.example.GreetingMessage;
 import com.example.GreetingService;
 import jakarta.inject.Inject;
 import org.jboss.arquillian.container.test.api.Deployment;
-import org.jboss.arquillian.testng.Arquillian;
+import org.jboss.arquillian.junit5.ArquillianExtension;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.asset.EmptyAsset;
 import org.jboss.shrinkwrap.api.spec.JavaArchive;
-import org.testng.annotations.Test;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 
 
 
 
-
-public class GreetingServiceTest extends Arquillian {
+@ExtendWith(ArquillianExtension.class)
+public class GreetingServiceTest {
     private final static Logger LOGGER = Logger.getLogger(GreetingServiceTest.class.getName());
 
     @Deployment

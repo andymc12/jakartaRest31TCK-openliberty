@@ -1,11 +1,8 @@
 package com.example;
 
-import static org.testng.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import org.testng.annotations.Test;
-
-
-
+import org.junit.jupiter.api.Test;
 
 public class GreetingMessageTest {
 

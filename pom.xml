@@ -35,9 +35,16 @@
         <jakartaee-api.version>9.1.0</jakartaee-api.version>
 
         <!-- TODO: update Arquillian BOM -->
-        <arquillian-bom.version>1.7.0.Alpha9</arquillian-bom.version>
-        <testng.version>7.4.0</testng.version>
+        <arquillian-bom.version>1.7.0.Alpha10</arquillian-bom.version>
+        <junit-jupiter.version>5.7.2</junit-jupiter.version>
 
+        <!-- Test Utilities -->
+        <mockito.version>3.11.1</mockito.version>
+        <json-path.version>2.6.0</json-path.version>
+        <awaitility.version>4.1.0</awaitility.version>
+        <hamcrest.version>2.2</hamcrest.version>
+        <jsonassert.version>1.5.0</jsonassert.version>
+        <assertj.version>3.20.1</assertj.version>
         <!-- TODO: OpenLiberty server -->
         <liberty.runtime.version>21.0.0.8-beta</liberty.runtime.version>
         <liberty-maven-plugin.version>3.3.4</liberty-maven-plugin.version>
@@ -47,9 +54,6 @@
         <!-- By default, skip tests -->
         <skip.unit.tests>true</skip.unit.tests>
         <skip.integration.tests>true</skip.integration.tests>
-
-        <defaultSuiteFiles>tck-suite.xml</defaultSuiteFiles>
-        <suiteXmlFile>${defaultSuiteFiles}</suiteXmlFile>
     </properties>
     <dependencyManagement>
         <dependencies>
@@ -66,6 +70,68 @@
                 <scope>import</scope>
                 <type>pom</type>
             </dependency>
+            <dependency>
+                <groupId>org.junit</groupId>
+                <artifactId>junit-bom</artifactId>
+                <version>${junit-jupiter.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+            <!-- https://mvnrepository.com/artifact/org.hamcrest/hamcrest -->
+            <dependency>
+                <groupId>org.hamcrest</groupId>
+                <artifactId>hamcrest</artifactId>
+                <version>${hamcrest.version}</version>
+                <scope>test</scope>
+            </dependency>
+
+            <dependency>
+                <groupId>org.skyscreamer</groupId>
+                <artifactId>jsonassert</artifactId>
+                <version>${jsonassert.version}</version>
+                <scope>test</scope>
+            </dependency>
+
+            <!-- https://mvnrepository.com/artifact/org.assertj/assertj-core -->
+            <dependency>
+                <groupId>org.assertj</groupId>
+                <artifactId>assertj-core</artifactId>
+                <version>${assertj.version}</version>
+                <scope>test</scope>
+            </dependency>
+
+            <!-- https://mvnrepository.com/artifact/org.awaitility/awaitility -->
+            <dependency>
+                <groupId>org.awaitility</groupId>
+                <artifactId>awaitility</artifactId>
+                <version>${awaitility.version}</version>
+                <scope>test</scope>
+            </dependency>
+
+            <!-- JSON path -->
+            <!-- https://mvnrepository.com/artifact/com.jayway.jsonpath/json-path -->
+            <dependency>
+                <groupId>com.jayway.jsonpath</groupId>
+                <artifactId>json-path</artifactId>
+                <version>${json-path.version}</version>
+                <scope>test</scope>
+            </dependency>
+            <!-- https://mvnrepository.com/artifact/com.jayway.jsonpath/json-path-assert -->
+            <dependency>
+                <groupId>com.jayway.jsonpath</groupId>
+                <artifactId>json-path-assert</artifactId>
+                <version>${json-path.version}</version>
+                <scope>test</scope>
+            </dependency>
+
+            <!-- Mockito -->
+            <!-- https://mvnrepository.com/artifact/org.mockito/mockito-core -->
+            <dependency>
+                <groupId>org.mockito</groupId>
+                <artifactId>mockito-core</artifactId>
+                <version>${mockito.version}</version>
+                <scope>test</scope>
+            </dependency>
         </dependencies>
     </dependencyManagement>
     <dependencies>
@@ -79,6 +145,11 @@
             <version>3.1-SNAPSHOT</version>
             <scope>test</scope>
         </dependency>
+        <dependency>
+            <groupId>org.jboss.arquillian.junit5</groupId>
+            <artifactId>arquillian-junit5-container</artifactId>
+            <scope>test</scope>
+        </dependency>
         <!-- see: https://github.com/arquillian/arquillian-core/issues/248 -->
         <!-- and https://github.com/arquillian/arquillian-core/pull/246/files -->
         <dependency>
@@ -88,10 +159,46 @@
         </dependency>
 
         <dependency>
-            <groupId>org.jboss.arquillian.testng</groupId>
-            <artifactId>arquillian-testng-container</artifactId>
-            <version>${arquillian-bom.version}</version>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter</artifactId>
+            <scope>test</scope>
         </dependency>
+        <!--        <dependency>
+                    <groupId>org.junit.jupiter</groupId>
+                    <artifactId>junit-jupiter-params</artifactId>
+                    <scope>test</scope>
+                </dependency>-->
+        <dependency>
+            <groupId>org.mockito</groupId>
+            <artifactId>mockito-core</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.hamcrest</groupId>
+            <artifactId>hamcrest</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.assertj</groupId>
+            <artifactId>assertj-core</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <!--<dependency>
+            <groupId>org.awaitility</groupId>
+            <artifactId>awaitility</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.skyscreamer</groupId>
+            <artifactId>jsonassert</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.jayway.jsonpath</groupId>
+            <artifactId>json-path</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.jayway.jsonpath</groupId>
+            <artifactId>json-path-assert</artifactId>
+        </dependency>-->
     </dependencies>
     <build>
         <finalName>${project.artifactId}</finalName>
@@ -150,9 +257,6 @@
                             <includes>
                                 <include>**/tck/**/*Test</include>
                             </includes>
-                            <suiteXmlFiles>
-                                <suiteXmlFile>${suiteXmlFile}</suiteXmlFile>
-                            </suiteXmlFiles>
                         </configuration>
                     </execution>
                 </executions>
@@ -281,14 +385,14 @@
                                 <!-- <sun.rmi.transport.tcp.responseTimeout>${sun.rmi.transport.tcp.responseTimeout}</sun.rmi.transport.tcp.responseTimeout> -->
                                 <java.util.logging.config.file>${project.build.testOutputDirectory}/logging.properties</java.util.logging.config.file>
                             </systemPropertyVariables>
-                        </configuration>
+                        </configuration><!--
                         <dependencies>
                             <dependency>
                                 <groupId>org.apache.maven.surefire</groupId>
                                 <artifactId>surefire-testng</artifactId>
                                 <version>3.0.0-M5</version>
                             </dependency>
-                        </dependencies>
+                        </dependencies> -->
                     </plugin>
                 </plugins>
             </build>

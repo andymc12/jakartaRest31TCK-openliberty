@@ -1,16 +1,15 @@
 package com.example;
 
-import static org.testng.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import org.testng.annotations.BeforeTest;
-import org.testng.annotations.Test;
-
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 public class GreetingServiceUnitTest {
 
     GreetingService service;
 
-    @BeforeTest
+    @BeforeEach
     public void setup() {
         service = new GreetingService();
     }
