@@ -33,6 +33,7 @@
 
         <!-- Jakarta EE API -->
         <jakartaee-api.version>9.1.0</jakartaee-api.version>
+        <jakarta.ws.rs.version>3.1.0</jakarta.ws.rs.version>
 
         <!-- TODO: update Arquillian BOM -->
         <arquillian-bom.version>1.7.0.Alpha10</arquillian-bom.version>
@@ -46,7 +47,7 @@
         <jsonassert.version>1.5.0</jsonassert.version>
         <assertj.version>3.20.1</assertj.version>
         <!-- TODO: OpenLiberty server -->
-        <liberty.runtime.version>21.0.0.8-beta</liberty.runtime.version>
+        <liberty.runtime.version>21.0.0.12-beta</liberty.runtime.version>
         <liberty-maven-plugin.version>3.3.4</liberty-maven-plugin.version>
         <arquillian-liberty-jakarta.version>2.0.0</arquillian-liberty-jakarta.version>
         <jersey.version>3.0.2</jersey.version>
@@ -142,7 +143,7 @@
         <dependency>
             <groupId>jakarta.ws.rs</groupId>
             <artifactId>jakarta.ws.rs-tck</artifactId>
-            <version>3.1-SNAPSHOT</version>
+            <version>${jakarta.ws.rs.version}</version>
             <scope>test</scope>
         </dependency>
         <dependency>
@@ -256,7 +257,11 @@
                             </dependenciesToScan>
                             <includes>
                                 <include>**/tck/**/*Test</include>
+                                <include>**/tck/**/*IT</include>
                             </includes>
+                            <excludes>
+                                <exclude>**/tck/**/SeBootstrapIT</exclude>
+                            </excludes>
                         </configuration>
                     </execution>
                 </executions>
@@ -380,10 +385,19 @@
                                 <tck_server>JakartaREST31TCKServer</tck_server>
                                 <tck_port>9080</tck_port>
                                 <http.port>9080</http.port>
+                                <tck.debug>true</tck.debug>
+                                <servlet.adaptor>com.ibm.websphere.jaxrs.server.IBMRestServlet</servlet.adaptor>
+                                <webServerHost>localhost</webServerHost>
+                                <webServerPort>9080</webServerPort>
+                                <servlet_adaptor>com.ibm.websphere.jaxrs.server.IBMRestServlet</servlet_adaptor>
                                 <!-- <wiremock.server.port>8765</wiremock.server.port> -->
                                 <com.ibm.ws.jaxrs.testing>true</com.ibm.ws.jaxrs.testing>
                                 <!-- <sun.rmi.transport.tcp.responseTimeout>${sun.rmi.transport.tcp.responseTimeout}</sun.rmi.transport.tcp.responseTimeout> -->
                                 <java.util.logging.config.file>${project.build.testOutputDirectory}/logging.properties</java.util.logging.config.file>
+                                <user>j2ee</user>
+                                <password>j2ee</password>
+                                <authuser>javajoe</authuser>
+                                <authpassword>javajoe</authpassword>
                             </systemPropertyVariables>
                         </configuration><!--
                         <dependencies>

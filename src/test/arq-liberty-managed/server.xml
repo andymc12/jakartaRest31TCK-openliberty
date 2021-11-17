@@ -4,6 +4,8 @@
     <!-- Enable features -->
     <featureManager>
         <feature>restfulWS-3.0</feature>
+        <feature>xmlBinding-3.0</feature>
+        <feature>appSecurity-4.0</feature>
         <feature>usr:arquillian-support-jakarta-2.0</feature>
         <feature>localConnector-1.0</feature>
     </featureManager>
@@ -16,4 +18,14 @@
     <!-- Automatically expand WAR files and EAR files -->
     <applicationManager updateTrigger="mbean"  autoExpand="true"/>
 
+    <basicRegistry id="basic" realm="customRealm">
+        <user name="j2ee" password="j2ee" />
+        <user name="javajoe" password="javajoe" />
+        <group name="DIRECTOR">
+            <member name="j2ee" />
+        </group>
+        <group name="OTHERROLE">
+            <member name="javajoe" />
+        </group>
+   </basicRegistry>
 </server>
